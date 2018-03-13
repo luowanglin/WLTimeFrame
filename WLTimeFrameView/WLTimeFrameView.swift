@@ -54,7 +54,7 @@ protocol WLTimeFrameDelegate {
 /**
  *主类
  */
-class WLTimeView: UIView {
+class WLTimeFrameView: UIView {
 
     var timeScrollView: UICollectionView?
     var titleView: UILabel?
@@ -101,7 +101,7 @@ class WLTimeView: UIView {
     
 }
 
-extension WLTimeView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+extension WLTimeFrameView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return timeFrameCount
     }

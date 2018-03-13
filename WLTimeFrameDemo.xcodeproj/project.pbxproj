@@ -12,8 +12,7 @@
 		D066A0462057A18D00C25D53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D066A03E2057A18D00C25D53 /* LaunchScreen.storyboard */; };
 		D066A0472057A18D00C25D53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D066A0402057A18D00C25D53 /* Main.storyboard */; };
 		D066A0482057A18D00C25D53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066A0422057A18D00C25D53 /* AppDelegate.swift */; };
-		D066A0492057A18D00C25D53 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D066A0432057A18D00C25D53 /* Info.plist */; };
-		D066A04C2057A1A500C25D53 /* WLTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066A04B2057A1A500C25D53 /* WLTimeView.swift */; };
+		D066A04C2057A1A500C25D53 /* WLTimeFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066A04B2057A1A500C25D53 /* WLTimeFrameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,7 +23,7 @@
 		D066A0412057A18D00C25D53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D066A0422057A18D00C25D53 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D066A0432057A18D00C25D53 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D066A04B2057A1A500C25D53 /* WLTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WLTimeView.swift; sourceTree = "<group>"; };
+		D066A04B2057A1A500C25D53 /* WLTimeFrameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WLTimeFrameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +40,7 @@
 		D015B1462056135500438FE1 = {
 			isa = PBXGroup;
 			children = (
-				D066A04A2057A1A500C25D53 /* WLTimeView */,
+				D066A04A2057A1A500C25D53 /* WLTimeFrameView */,
 				D066A03B2057A18D00C25D53 /* WLTimeFrameDemo */,
 				D015B1502056135500438FE1 /* Products */,
 			);
@@ -68,12 +67,12 @@
 			path = WLTimeFrameDemo;
 			sourceTree = "<group>";
 		};
-		D066A04A2057A1A500C25D53 /* WLTimeView */ = {
+		D066A04A2057A1A500C25D53 /* WLTimeFrameView */ = {
 			isa = PBXGroup;
 			children = (
-				D066A04B2057A1A500C25D53 /* WLTimeView.swift */,
+				D066A04B2057A1A500C25D53 /* WLTimeFrameView.swift */,
 			);
-			path = WLTimeView;
+			path = WLTimeFrameView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,7 +134,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D066A0492057A18D00C25D53 /* Info.plist in Resources */,
 				D066A0472057A18D00C25D53 /* Main.storyboard in Resources */,
 				D066A0452057A18D00C25D53 /* Assets.xcassets in Resources */,
 				D066A0462057A18D00C25D53 /* LaunchScreen.storyboard in Resources */,
@@ -149,7 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D066A04C2057A1A500C25D53 /* WLTimeView.swift in Sources */,
+				D066A04C2057A1A500C25D53 /* WLTimeFrameView.swift in Sources */,
 				D066A0482057A18D00C25D53 /* AppDelegate.swift in Sources */,
 				D066A0442057A18D00C25D53 /* ViewController.swift in Sources */,
 			);
