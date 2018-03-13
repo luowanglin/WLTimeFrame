@@ -8,6 +8,45 @@
 
 import UIKit
 
+/**
+ *游标类
+ */
+class WLTimePointer: UIView {
+    
+    let lineWidth:CGFloat = 1.0
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.clear
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func draw(_ rect: CGRect) {
+        let context: CGContext = UIGraphicsGetCurrentContext()!
+        //直线
+        context.setLineCap(CGLineCap.square)
+        context.setLineWidth(lineWidth)
+        context.beginPath()
+        context.move(to: CGPoint.init(x: self.frame.width / 2, y: self.frame.height))
+        context.addLine(to: CGPoint.init(x: self.frame.width / 2, y: 5.0))
+        //三角形
+        context.addLine(to: CGPoint.init(x: self.frame.width / 2 - 5.0, y: 0.0))
+        context.addLine(to: CGPoint.init(x: self.frame.width / 2 + 5.0, y: 0.0))
+        context.addLine(to: CGPoint.init(x: self.frame.width / 2, y: 5.0))
+        UIColor.init(red: 0.82, green: 0.01, blue: 0.11, alpha: 1.0).setFill()
+        UIColor.init(red: 0.82, green: 0.01, blue: 0.11, alpha: 1.0).setStroke()
+        context.closePath()
+        context.drawPath(using: CGPathDrawingMode.fillStroke)
+    }
+    
+}
+
+/**
+ *主类
+ */
 class WLTimeView: UIView {
 
     var timeScrollView: UICollectionView?
@@ -31,10 +70,10 @@ class WLTimeView: UIView {
         self.timeScrollView?.delegate = self
         self.timeScrollView?.dataSource = self
         self.addSubview(timeScrollView!)
-        //添加指针
-        let pointer: UIImageView = UIImageView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 10, height: frame.height))
-        pointer.image = UIImage.init(named: "pointer")
+        //初始化游标
+        let pointer: WLTimePointer = WLTimePointer.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 10, height: frame.height))
         pointer.center = CGPoint.init(x: frame.width / 2, y: frame.height / 2)
+        pointer.setNeedsDisplay()
         self.addSubview(pointer)
         //提示标签
         self.titleView = UILabel.init(frame: CGRect.init(x: (UIScreen.main.bounds.width - 140.0) / 2, y: (timeScrollView?.frame.minY)! - 30.0, width: 140.0, height: 20.0))
@@ -124,3 +163,4 @@ extension WLTimeView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
     }
     
 }
+
