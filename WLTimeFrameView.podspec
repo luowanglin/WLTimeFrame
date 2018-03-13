@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "WLTimeFrameView"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "A similar with video frame of time axis on iOS "
 
   # This description is used to generate tags and improve search results.
@@ -26,8 +26,8 @@ Pod::Spec.new do |s|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = "That is awesome time frame component,So you can try it! I will make better, Thanks!"
 
-#  s.homepage     = "https://github.com/luowanglin/WLTimeFrame/raw/master/git_wltimeframe.png"
-   s.screenshots  = "://github.com/luowanglin/WLTimeFrame/raw/master/gi    t_wltimeframe.png"
+  s.homepage     = "https://github.com/luowanglin/WLTimeFrame"
+  s.screenshots  = "https://github.com/luowanglin/WLTimeFrame/raw/master/git_wltimeframe.png"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -89,7 +89,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = 'WLTimeView/*.swift' 
+  s.source_files  = 'WLTimeFrameView/*.swift' 
   #s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
