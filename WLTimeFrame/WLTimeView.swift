@@ -13,7 +13,7 @@ import UIKit
  */
 class WLTimePointer: UIView {
     
-    let lineWidth:CGFloat = 1.0
+    let lineWidth:CGFloat = 2.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,6 +45,13 @@ class WLTimePointer: UIView {
 }
 
 /**
+ *协议
+ */
+protocol WLTimeFrameDelegate {
+    func moveChange(time:String)
+}
+
+/**
  *主类
  */
 class WLTimeView: UIView {
@@ -54,6 +61,7 @@ class WLTimeView: UIView {
     let timeFrameCount = 1440//总的时间秒数
     private var second: Int = 0
     private var flagNum: CGFloat = 0.0
+    var delegate: WLTimeFrameDelegate?
     
     
     override init(frame: CGRect) {
@@ -156,6 +164,7 @@ extension WLTimeView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         let minuteStr:String = String(format:"%.2d",fieldNum % 60)
         let hoursStr:String = String(format:"%.2d",fieldNum / 60 )
         self.titleView?.text = "03月12日 \(hoursStr):\(minuteStr):\(secondStr)"
+        self.delegate?.moveChange(time: "\(hoursStr):\(minuteStr):\(secondStr)")
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
