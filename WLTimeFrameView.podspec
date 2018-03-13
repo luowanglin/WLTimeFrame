@@ -26,8 +26,8 @@ Pod::Spec.new do |s|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = "That is awesome time frame component,So you can try it! I will make better, Thanks!"
 
-  s.homepage     = "https://github.com/luowanglin/WLTimeFrame/raw/master/git_wltimeframe.png"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
+#  s.homepage     = "https://github.com/luowanglin/WLTimeFrame/raw/master/git_wltimeframe.png"
+   s.screenshots  = "://github.com/luowanglin/WLTimeFrame/raw/master/gi    t_wltimeframe.png"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
