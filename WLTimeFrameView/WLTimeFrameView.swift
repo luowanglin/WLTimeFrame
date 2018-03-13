@@ -11,20 +11,20 @@ import UIKit
 /**
  *游标类
  */
-class WLTimePointer: UIView {
+public class WLTimePointer: UIView {
     
     let lineWidth:CGFloat = 2.0
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         let context: CGContext = UIGraphicsGetCurrentContext()!
         //直线
         context.setLineCap(CGLineCap.square)
@@ -47,24 +47,24 @@ class WLTimePointer: UIView {
 /**
  *协议
  */
-protocol WLTimeFrameDelegate {
+public protocol WLTimeFrameViewDelegate {
     func moveChange(time:String)
 }
 
 /**
  *主类
  */
-class WLTimeFrameView: UIView {
+public class WLTimeFrameView: UIView {
 
-    var timeScrollView: UICollectionView?
-    var titleView: UILabel?
-    let timeFrameCount = 1440//总的时间秒数
+    public var timeScrollView: UICollectionView?
+    public var titleView: UILabel?
+    public let timeFrameCount = 1440//总的时间秒数
     var second: Int = 0
     var flagNum: CGFloat = 0.0
-    var delegate: WLTimeFrameDelegate?
+    public var delegate: WLTimeFrameViewDelegate?
     
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         //滑动框
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
@@ -95,18 +95,18 @@ class WLTimeFrameView: UIView {
         self.addSubview(self.titleView!)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
 }
 
 extension WLTimeFrameView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return timeFrameCount
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         while (cell.contentView.subviews.last != nil) {
             cell.contentView.subviews.last?.removeFromSuperview()
@@ -142,7 +142,7 @@ extension WLTimeFrameView: UICollectionViewDelegate, UICollectionViewDataSource,
         return cell
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         print("...\(scrollView.contentOffset.x)")
         let fieldNum:Int = Int(scrollView.contentOffset.x) / 15
         if flagNum < scrollView.contentOffset.x {
@@ -167,7 +167,7 @@ extension WLTimeFrameView: UICollectionViewDelegate, UICollectionViewDataSource,
         self.delegate?.moveChange(time: "\(hoursStr):\(minuteStr):\(secondStr)")
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize.init(width: 15.0, height: collectionView.frame.height)
     }
     
