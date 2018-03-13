@@ -59,8 +59,8 @@ class WLTimeView: UIView {
     var timeScrollView: UICollectionView?
     var titleView: UILabel?
     let timeFrameCount = 1440//总的时间秒数
-    private var second: Int = 0
-    private var flagNum: CGFloat = 0.0
+    var second: Int = 0
+    var flagNum: CGFloat = 0.0
     var delegate: WLTimeFrameDelegate?
     
     
