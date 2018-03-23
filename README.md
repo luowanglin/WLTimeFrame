@@ -6,7 +6,6 @@
 
 ![Build Status](http://img.shields.io/travis/rs/SDWebImage/master.svg?style=flat)
 ![Pod Version](http://img.shields.io/cocoapods/v/SDWebImage.svg?style=flat)
-![Pod Platform](http://img.shields.io/cocoapods/p/SDWebImage.svg?style=flat)
 ![Pod License](http://img.shields.io/cocoapods/l/SDWebImage.svg?style=flat)
 ![Dependency Status](https://www.versioneye.com/objective-c/sdwebimage/badge.svg?style=flat)
 
