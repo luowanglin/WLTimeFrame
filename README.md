@@ -34,7 +34,7 @@ This library provides an smart time frame. For convenience, we added  UI element
 - If you **found a bug**, open an issue.
 - If you **have a feature request**, open an issue.
 - If you **want to contribute**, submit a pull request.
-- If you **want to about me**,click to [my page](https://luowanglin.github.io)
+- If you **want to learn more about me**,click to [my page](https://luowanglin.github.io)
 
 ## How To Use
 
