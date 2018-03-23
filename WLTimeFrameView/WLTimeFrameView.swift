@@ -13,7 +13,8 @@ import UIKit
  */
 public class WLTimePointer: UIView {
     
-    let lineWidth:CGFloat = 2.0
+    public var lineWidth:CGFloat = 2.0
+    public var pointerColor: UIColor = UIColor.init(red: 0.82, green: 0.01, blue: 0.11, alpha: 1.0)
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,8 +37,8 @@ public class WLTimePointer: UIView {
         context.addLine(to: CGPoint.init(x: self.frame.width / 2 - 5.0, y: 0.0))
         context.addLine(to: CGPoint.init(x: self.frame.width / 2 + 5.0, y: 0.0))
         context.addLine(to: CGPoint.init(x: self.frame.width / 2, y: 5.0))
-        UIColor.init(red: 0.82, green: 0.01, blue: 0.11, alpha: 1.0).setFill()
-        UIColor.init(red: 0.82, green: 0.01, blue: 0.11, alpha: 1.0).setStroke()
+        pointerColor.setFill()
+        pointerColor.setStroke()
         context.closePath()
         context.drawPath(using: CGPathDrawingMode.fillStroke)
     }
@@ -48,8 +49,10 @@ public class WLTimePointer: UIView {
  *协议
  */
 public protocol WLTimeFrameViewDelegate {
-    func moveChange(time:Date)
-    func moveBegin(time:Date)
+    func endDragging(at time:Date)
+    func beginScroll(at time:Date)
+    func didScroll(at time:Date)
+    func endDecelerating(at time:Date)
 }
 
 /**
@@ -70,18 +73,21 @@ public class WLTimeFrameView: UIView {
             self.titleView?.text = "\(dateStr!) \(hoursStr):\(minuteStr):\(secondStr)"
         }
     }
+    public var pointer: WLTimePointer?
+    public var themeColor: UIColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.79)
     public var secondStr: String = "00"
     public var minuteStr: String = "00"
     public var hoursStr: String = "00"
     public var timeScrollView: UICollectionView?
     public var titleView: UILabel?
     private var timer: Timer?
-    var isTouchBegin: Bool = false
+    public var isTouchBegin: Bool = false
     public let timeFrameCount = 1440//总的时间秒数
-    var width_screen: CGFloat = UIScreen.main.bounds.width
-    var second: Int = 0
-    var flagNum: CGFloat = 0.0
-    var margin_top: CGFloat = 40.0
+    private var width_screen: CGFloat = UIScreen.main.bounds.width
+    public var timeFrameColor: UIColor = UIColor.orange
+    private var second: Int = 0
+    private var flagNum: CGFloat = 0.0
+    private var margin_top: CGFloat = 40.0
     public var delegate: WLTimeFrameViewDelegate?
     var source: [WLTimeSpaceModel] = [WLTimeSpaceModel]() {
         didSet{
@@ -94,7 +100,7 @@ public class WLTimeFrameView: UIView {
             timeScrollView?.contentOffset = CGPoint.init(x: CGFloat((source.first?.startTime)! / 4), y: 0.0)
             for (index,item) in source.enumerated() {
                 let frameLineView:UIView = UIView.init(frame: CGRect.init(x: CGFloat(item.startTime / 4 + self.frame.width / 2), y: 0.0, width: (item.endTime / 4 - item.startTime / 4), height: self.frame.height))
-                frameLineView.backgroundColor = UIColor.orange
+                frameLineView.backgroundColor = timeFrameColor
                 frameLineView.layer.zPosition = -1
                 frameLineView.tag = index+1
                 timeScrollView?.addSubview(frameLineView)
@@ -111,19 +117,19 @@ public class WLTimeFrameView: UIView {
         layout.sectionInset = UIEdgeInsets.init(top: 0.0, left: frame.width / 2, bottom: 0.0, right: frame.width / 2)
         self.timeScrollView = UICollectionView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: self.frame.width, height: self.frame.height), collectionViewLayout: layout)
         self.timeScrollView?.showsHorizontalScrollIndicator = false
-        self.timeScrollView?.backgroundColor = UIColor.gray
+        self.timeScrollView?.backgroundColor = themeColor
         self.timeScrollView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         self.timeScrollView?.delegate = self
         self.timeScrollView?.dataSource = self
         self.addSubview(timeScrollView!)
         //初始化游标
-        let pointer: WLTimePointer = WLTimePointer.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 10, height: self.frame.height))
-        pointer.center = CGPoint.init(x: frame.width / 2, y: self.frame.height / 2)
-        pointer.setNeedsDisplay()
-        self.addSubview(pointer)
+        pointer = WLTimePointer.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 10, height: self.frame.height))
+        pointer?.center = CGPoint.init(x: frame.width / 2, y: self.frame.height / 2)
+        pointer?.setNeedsDisplay()
+        self.addSubview(pointer!)
         //提示标签
         self.titleView = UILabel.init(frame: CGRect.init(x: (width_screen - 140.0) / 2, y: -30.0, width: 140.0, height: 20.0))
-        self.titleView?.backgroundColor = UIColor.gray
+        self.titleView?.backgroundColor = themeColor
         self.titleView?.layer.cornerRadius = 10.0
         self.titleView?.layer.masksToBounds = true
         self.titleView?.textColor = UIColor.white
@@ -159,7 +165,7 @@ extension WLTimeFrameView: UICollectionViewDelegate, UICollectionViewDataSource,
         }
         cell.contentView.clipsToBounds = false
         cell.clipsToBounds = false
-        //格式化title格式
+        /*********/
         let textV: UILabel = UILabel.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 30.0, height: 20.0))
         textV.textAlignment = .center
         let minuteStr:String = String(format:"%.2d",indexPath.item % 60)
@@ -168,7 +174,7 @@ extension WLTimeFrameView: UICollectionViewDelegate, UICollectionViewDataSource,
         textV.clipsToBounds = false
         textV.font = UIFont.systemFont(ofSize: 10.0)
         textV.textColor = UIColor.white
-        //特殊化标尺高度
+        /*********/
         var lineH = 10.0
         if indexPath.item % 60 == 0 {
             lineH = 20.0
@@ -207,20 +213,37 @@ extension WLTimeFrameView: UICollectionViewDelegate, UICollectionViewDataSource,
         minuteStr = String(format:"%.2d",fieldNum % 60)
         hoursStr = String(format:"%.2d",fieldNum / 60 )
         self.titleView?.text = "\(hoursStr):\(minuteStr):\(secondStr)"
+        /***********/
+        let dateFormat: DateFormatter = DateFormatter()
+        dateFormat.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        if let date:Date = dateFormat.date(from: "2018-03-20 \(hoursStr):\(minuteStr):\(secondStr)") {
+            self.delegate?.didScroll(at: date)
+        }
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         let dateFormat: DateFormatter = DateFormatter()
         dateFormat.dateFormat = "yyyy-MM-dd hh:mm:ss"
-        let date:Date? = dateFormat.date(from: "2018-03-20 \(hoursStr):\(minuteStr):\(secondStr)")
-        self.delegate?.moveBegin(time: date!)
+        if let date:Date = dateFormat.date(from: "2018-03-20 \(hoursStr):\(minuteStr):\(secondStr)") {
+            self.delegate?.beginScroll(at: date)
+        }
     }
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let dateFormat: DateFormatter = DateFormatter()
         dateFormat.dateFormat = "yyyy-MM-dd hh:mm:ss"
-        let date:Date? = dateFormat.date(from: "2018-03-20 \(hoursStr):\(minuteStr):\(secondStr)")
-        self.delegate?.moveChange(time: date!)
+        if let date:Date = dateFormat.date(from: "2018-03-20 \(hoursStr):\(minuteStr):\(secondStr)") {
+            self.delegate?.endDragging(at: date)
+            
+        }
+    }
+    
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let dateFormat: DateFormatter = DateFormatter()
+        dateFormat.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        if let date:Date = dateFormat.date(from: "2018-03-20 \(hoursStr):\(minuteStr):\(secondStr)") {
+            self.delegate?.endDecelerating(at: date)
+        }
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
