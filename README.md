@@ -29,8 +29,8 @@ This library provides an smart time frame. For convenience, we added  UI element
 
 ## Communication
 
-- If you **need help**, use [luowanglin mail](luowanglin@icloud.com).
-- If you'd like to **ask a general question**, use [luowanglin](luowanglin@icloud.com).
+- If you **need help**, you can reach me via ```luowanglin@icloud.com```
+- If you'd like to **ask a general question**,please kindly send  me an email to ```luowanglin@icloud.com```
 - If you **found a bug**, open an issue.
 - If you **have a feature request**, open an issue.
 - If you **want to contribute**, submit a pull request.
