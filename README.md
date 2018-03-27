@@ -4,11 +4,10 @@
 </p>
 
 
-[![Build Status](http://img.shields.io/travis/rs/SDWebImage/master.svg?style=flat)]
-[![Pod Version](http://img.shields.io/cocoapods/v/SDWebImage.svg?style=flat)]
-[![Pod Platform](http://img.shields.io/cocoapods/p/SDWebImage.svg?style=flat)]
-[![Pod License](http://img.shields.io/cocoapods/l/SDWebImage.svg?style=flat)]
-[![Dependency Status](https://www.versioneye.com/objective-c/sdwebimage/badge.svg?style=flat)]
+![Build Status](http://img.shields.io/travis/rs/SDWebImage/master.svg?style=flat)
+![Pod Version](http://img.shields.io/cocoapods/v/SDWebImage.svg?style=flat)
+![Pod License](http://img.shields.io/cocoapods/l/SDWebImage.svg?style=flat)
+![Dependency Status](https://www.versioneye.com/objective-c/sdwebimage/badge.svg?style=flat)
 
 
 This library provides an smart time frame. For convenience, we added  UI elements like `WLTimePointer`, `WLTimeFrameView`.
@@ -30,12 +29,12 @@ This library provides an smart time frame. For convenience, we added  UI element
 
 ## Communication
 
-- If you **need help**, use [luowanglin mail](luowanglin@icloud.com).
-- If you'd like to **ask a general question**, use [luowanglin](luowanglin@icloud.com).
+- If you **need help**, you can reach me via ```luowanglin@icloud.com```
+- If you'd like to **ask a general question**,please kindly send  me an email to ```luowanglin@icloud.com```
 - If you **found a bug**, open an issue.
 - If you **have a feature request**, open an issue.
 - If you **want to contribute**, submit a pull request.
-- If you **want to about me**,click to [my page](https://luowanglin.github.io)
+- If you **want to learn more about me**,click to [my page](https://luowanglin.github.io)
 
 ## How To Use
 
